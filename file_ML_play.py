@@ -10,16 +10,6 @@ print ('Socket bind complete')
 s.listen(1)
 print ('Socket now listening')
 
-# HTTP 통신 : 클라이언트에서 서버로 요청을 보내고 서버가 응답하는 방식
-# 클라이언트요청이 있을 때 서버가응답하는 방식, 단방향 통신
-# Server로부터 소켓 연결을 하고 응답을 받은 후에는 연결이 바로 종료된다. 
-# JSON, Image, Html 파일 등 다양한 파이른 전송받을 수 있다.
-
-# Socket 통신 : 클라이언트와 버서 양쪽에서 서로에게 데이터 전달을 하는 방식의 양방향 통신
-# 자주 데이터를 주고 받는 환경이 아닌 경우 HTTP통신을 통해 받는 것이 유리
-# 자주 데이터 주고 받아야하는 환경에서는 소켓 통신이 유리
-# Socket 통신은 계속해서 Connection을 듣고 있기 때문에 HTTP에 비해 리소스 소모가 크다.
-
 while True:
    #접속 승인
     conn, addr = s.accept()
@@ -142,18 +132,18 @@ while True:
     winter_m = [12,1,2]
   
 
-    one = pd.read_csv('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/one.csv',encoding='euc-kr')
-    two = pd.read_csv('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/two.csv',encoding='euc-kr')
-    three = pd.read_csv('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/three.csv',encoding='euc-kr')
-    four = pd.read_csv('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/four.csv',encoding='euc-kr')
-    five = pd.read_csv('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/five.csv',encoding='euc-kr')
-    six = pd.read_csv('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/six.csv',encoding='euc-kr')
-    seven = pd.read_csv('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/seven.csv',encoding='euc-kr')
-    eight = pd.read_csv('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/eight.csv',encoding='euc-kr')
-    nine = pd.read_csv('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/nine.csv',encoding='euc-kr')
-    ten = pd.read_csv('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/ten.csv',encoding='euc-kr')
-    eleven = pd.read_csv('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/eleven.csv',encoding='euc-kr')
-    twelve = pd.read_csv('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/twelve.csv',encoding='euc-kr')
+    one = pd.read_csv('C:/one.csv',encoding='euc-kr')
+    two = pd.read_csv('C:/two.csv',encoding='euc-kr')
+    three = pd.read_csv('C:/three.csv',encoding='euc-kr')
+    four = pd.read_csv('C:/four.csv',encoding='euc-kr')
+    five = pd.read_csv('C:/five.csv',encoding='euc-kr')
+    six = pd.read_csv('C:/six.csv',encoding='euc-kr')
+    seven = pd.read_csv('C:/seven.csv',encoding='euc-kr')
+    eight = pd.read_csv('C:/eight.csv',encoding='euc-kr')
+    nine = pd.read_csv('C:/nine.csv',encoding='euc-kr')
+    ten = pd.read_csv('C:/ten.csv',encoding='euc-kr')
+    eleven = pd.read_csv('C:/eleven.csv',encoding='euc-kr')
+    twelve = pd.read_csv('C:/twelve.csv',encoding='euc-kr')
 
     df_sp = pd.concat([three,four],ignore_index=True)
     df_sp = pd.concat([df_sp,five],ignore_index=True)
@@ -181,6 +171,8 @@ while True:
     train_winter = df_wi.drop(['spotName','tm'], axis=1)
     print(train_spring.info())
     print(train_summer.info())
+      
+    #데이터 전처리
     y_label_spring=[0 for i in range(len(train_spring))]
     for i in range(len(train_spring)):
         if train_spring['th3'][i]>12:
@@ -326,7 +318,6 @@ while True:
 
     #from joblib import dump, load
     if(month in spring_m):
-        #automl = load('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/Spring.joblib')
         from sklearn.ensemble import RandomForestRegressor
         clf = RandomForestRegressor()
         clf.fit(train_spring, y_label_spring)
@@ -334,7 +325,6 @@ while True:
         #y_predict = automl.predict(x_test)
 
     if(month in summer_m):
-        #automl = load('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/Summer.joblib')
         from sklearn.ensemble import RandomForestRegressor
         clf = RandomForestRegressor()
         clf.fit(train_summer, y_label_summer)
@@ -342,7 +332,6 @@ while True:
         #y_predict = automl.predict(x_test)
 
     if(month in fall_m):
-        #automl = load('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/Fall.joblib')
         from sklearn.ensemble import RandomForestRegressor
         clf = RandomForestRegressor()
         clf.fit(train_fall, y_label_fall)
@@ -350,7 +339,6 @@ while True:
         #y_predict = automl.predict(x_test)
 
     if(month in winter_m):
-        #automl = load('C:/Users/82102/OneDrive/바탕 화면/SJU/3학년/전공심화(두드림)/Winter.joblib')
         from sklearn.ensemble import RandomForestRegressor
         clf = RandomForestRegressor()
         clf.fit(train_winter, y_label_winter)
